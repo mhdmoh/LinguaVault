@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeScreen.swift
 //  LinguaVault
 //
 //  Created by Mohamad Mohamad on 27/02/2025.
@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State var selected: MainActions? = nil
+struct HomeScreen: View {
     @State var importingData = false
-    @Environment(\.dismiss) var dissmiss
+    @StateObject var coordinator = MainCoordinator()
     
     var body: some View {
-        NavigationStack{
+        NavigationStack(path: $coordinator.path){
             ScrollView{
                 VStack(spacing: 16){
                     MainCardView(action: MainActions.actions[0]) {
                         VocabularySubView()
                     } delegat:  {
-                        selected = MainActions.actions[0]
+                        coordinator.goToVocabularyScreen()
                     }
                     .padding(.horizontal)
                     .padding(.top, 16)
@@ -28,7 +27,7 @@ struct ContentView: View {
                     MainCardView(action: MainActions.actions[1]) {
                         PronunciationSubView()
                     } delegat:  {
-                        selected = MainActions.actions[1]
+                        
                     }
                     .padding(.horizontal)
                     
@@ -42,6 +41,7 @@ struct ContentView: View {
                         MainCardView(action: MainActions.actions[3]) {
                             SettingsSubView()
                         } delegat:  {
+                            
                         }
                         
                     }
@@ -71,22 +71,19 @@ struct ContentView: View {
                 importingData = false
             }
             .navigationTitle("It's Practice Time!")
-            .navigationDestination(item: $selected) { value in
-                switch value.action {
+            .navigationDestination(for: MainCoordinator.Destinations.self) { value in
+                switch value {
                 case .vocabulary:
-                    LearnVocabularyView()
+                    VocabularyScreen()
                 case .pronunciation:
-                    Text("")
-                case .importData:
-                    Text("")
-                case .settings:
                     Text("")
                 }
             }
+            .environmentObject(coordinator)
         }
     }
 }
 
 #Preview {
-    ContentView()
+    HomeScreen()
 }
