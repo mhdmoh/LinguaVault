@@ -8,15 +8,18 @@
 import Foundation
 import SwiftUI
 
-class MainCoordinator: Coordinator {
-    var childCoordinators: [any Coordinator] = []
-    @Published var path = NavigationPath()
+@MainActor
+class MainCoordinator: ObservableObject {
+    @Published var path = [Destinations]()
     
     enum Destinations {
-        case vocabulary, pronunciation
+        case vocabulary
+        case pronunciation
     }
     
     func goToVocabularyScreen() {
-        self.path.append(Destinations.vocabulary)
+        print("before: \(path)")
+        path.append(.vocabulary)
+        print("after: \(path)")
     }
 }

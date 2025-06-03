@@ -9,10 +9,13 @@ import SwiftUI
 
 struct VocabularyScreen: View {
     var body: some View {
-        NavigationStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .navigationTitle("Vocabulary")
+        VStack(alignment: .leading, spacing: 16){
+            LearnedWordsBtnCard()
+            MistakesBtnCard()
+            Spacer()
         }
+        .padding()
+        .navigationTitle("Your collection")
     }
 }
 
