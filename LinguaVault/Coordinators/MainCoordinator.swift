@@ -15,11 +15,19 @@ class MainCoordinator: ObservableObject {
     enum Destinations {
         case vocabulary
         case pronunciation
+        case learnedVocabulary
+        case vocabularyDetails
     }
     
     func goToVocabularyScreen() {
-        print("before: \(path)")
         path.append(.vocabulary)
-        print("after: \(path)")
+    }
+    
+    func goToVocabularyDetailsScreen() {
+        path.append(.vocabularyDetails)
+    }
+    
+    func goToLearnedVocabularyScreen() {
+        path.append(.learnedVocabulary)
     }
 }

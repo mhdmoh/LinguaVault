@@ -56,26 +56,26 @@ struct MainActions: Identifiable, Hashable {
             action: .vocabulary
         ),
         
-            .init(
-                progress: 0.8,
-                hexColor: "#95A1FE",
-                subtitle: "/go:tən ta:k/",
-                action: .pronunciation
-            ),
-        
-            .init(
-                progress: 0,
-                hexColor: "#FF6B6B",
-                subtitle: "Add New Vocabulary",
-                action: .importData
-            ),
-        
-            .init(
-                progress: 0,
-                hexColor: "#C0C0C0",
-                subtitle: "Change Configs",
-                action: .settings
-            )
+        .init(
+            progress: 0.8,
+            hexColor: "#95A1FE",
+            subtitle: "/go:tən ta:k/",
+            action: .pronunciation
+        ),
+    
+        .init(
+            progress: 0,
+            hexColor: "#FF6B6B",
+            subtitle: "Add New Vocabulary",
+            action: .importData
+        ),
+    
+        .init(
+            progress: 0,
+            hexColor: "#C0C0C0",
+            subtitle: "Change Configs",
+            action: .settings
+        )
     ]
 }
 

@@ -26,7 +26,7 @@ struct LearnVocabularyView: View {
                 
                 ZStack{
                     ForEach(Array(viewModel.words.enumerated()), id: \.offset) { index, word in
-                        VocabularyView(
+                        HorizontalFlashCardView(
                             width: reader.size.width * 0.8,
                             height: reader.size.height * 0.5
                         ){
@@ -47,7 +47,7 @@ struct LearnVocabularyView: View {
                 Button("Show Example Sentences") {
                     
                 }
-                .buttonStyle(.main)
+                .buttonStyle(.main())
                 .padding()
             }
         }

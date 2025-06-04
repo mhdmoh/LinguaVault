@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LearnedWordsBtnCard: View {
+    @EnvironmentObject var coordinator: MainCoordinator
     private let colors = Action.vocabulary.gradientColors()
     
     var body: some View {
@@ -48,6 +49,9 @@ struct LearnedWordsBtnCard: View {
                     }
             }
             .offset(x: -36, y: -8)
+        }
+        .onTapGesture {
+            coordinator.goToLearnedVocabularyScreen()
         }
     }
 }

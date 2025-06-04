@@ -18,7 +18,7 @@ struct HomeScreen: View {
                     MainCardView(action: MainActions.actions[0]) {
                         VocabularySubView()
                     } delegat:  {
-                        coordinator.goToVocabularyScreen()
+                        coordinator.goToVocabularyDetailsScreen()
                     }
                     .padding(.horizontal)
                     .padding(.top, 16)
@@ -73,14 +73,18 @@ struct HomeScreen: View {
             .navigationTitle("It's Practice Time!")
             .navigationDestination(for: MainCoordinator.Destinations.self) { value in
                 switch value {
+                case .vocabularyDetails:
+                    VocabularyDetailsScreen()
+                case .learnedVocabulary:
+                    LearnedVocabularyScreen()
                 case .vocabulary:
-                    VocabularyScreen()
+                    LearnVocabularyView()
                 case .pronunciation:
                     Text("")
                 }
             }
-            .environmentObject(coordinator)
         }
+        .environmentObject(coordinator)
     }
 }
 

@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct VocabularyScreen: View {
+struct VocabularyDetailsScreen: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16){
+            AddNewVocabularySectionView()
+            Divider()
+            
             LearnedWordsBtnCard()
             MistakesBtnCard()
             Spacer()
@@ -20,5 +23,5 @@ struct VocabularyScreen: View {
 }
 
 #Preview {
-    VocabularyScreen()
+    VocabularyDetailsScreen()
 }
