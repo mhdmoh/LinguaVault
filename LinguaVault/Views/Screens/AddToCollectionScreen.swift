@@ -10,6 +10,27 @@ import SwiftUI
 struct AddToCollectionScreen: View {
     private var heightMultiplier = 0.28
     
+    @State private var offset = CGSize.zero
+    @State private var state: AddState? = nil
+    
+    enum AddState {
+        case add
+        case ignore
+    }
+    
+    private func handleSwipe(value: CGFloat) {
+        switch value {
+        case -500...(-120):
+            offset = CGSize(width: .zero, height: -256)
+            state = .add
+        case 120...500:
+            offset = CGSize(width: .zero, height: 256)
+            state = .ignore
+        default:
+            offset = .zero
+        }
+    }
+    
     var body: some View {
         GeometryReader{ reader in
             VStack(alignment: .leading){
@@ -18,24 +39,41 @@ struct AddToCollectionScreen: View {
                 Spacer()
                 
                 
-                VocabularyView(
-                    width: .infinity,
-                    height: reader.size.height * heightMultiplier
-                )
+                ZStack {
+                    VocabularyView(
+                        width: .infinity,
+                        height: reader.size.height * heightMultiplier
+                    )
+                    .rotationEffect(.degrees(-3))
+                    
+                    VocabularyView(
+                        width: .infinity,
+                        height: reader.size.height * heightMultiplier
+                    )
+                    .rotationEffect(.degrees(1))
+                    
+                    VocabularyView(
+                        width: .infinity,
+                        height: reader.size.height * heightMultiplier
+                    )
+                    .rotationEffect(.degrees(state != nil ? 0 : -1))
+                    .scaleEffect(x: state != nil ? 0.8 : 1)
+                    .scaleEffect(y: state != nil ? 0.8 : 1)
+                    .offset(x: offset.width * 0.2, y: offset.height )
+                    .rotationEffect(.degrees(state != nil ? 0 : -1 * Double(offset.height / 50)))
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                offset = gesture.translation
+                            }
+                            .onEnded { _ in
+                                withAnimation {
+                                    handleSwipe(value: offset.height)
+                                }
+                            }
+                    )
+                }
                 .zIndex(10)
-                
-//                VStack {
-//                    
-//                }
-//                .frame(height: reader.size.height * heightMultiplier)
-//                .frame(maxWidth: .infinity)
-//                .background(.white)
-//                .cornerRadius(16)
-//                .background {
-//                    RoundedRectangle(cornerRadius: 16)
-//                        .stroke(.gray.secondary)
-//                }
-//                .rotationEffect(.degrees(1))
                 
                 Spacer()
                 
@@ -52,7 +90,7 @@ private struct ToLearnViewBackground: View {
     
     private func buildRectangle() -> some View {
         Rectangle()
-            .frame(width: 20, height: 30)
+            .frame(width: 16, height: 24)
             .foregroundStyle(.green)
             .cornerRadius(2)
             .background {
@@ -69,7 +107,7 @@ private struct ToLearnViewBackground: View {
             .frame(height: height)
             .frame(maxWidth: .infinity)
             .background {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(.green)
             }
             
@@ -84,7 +122,7 @@ private struct ToLearnViewBackground: View {
                 }
                 
                 Text("To learn")
-                    .fontWeight(.bold)
+                    .font(.caption.bold())
                     .foregroundStyle(.green)
             }
             .padding(12)
@@ -109,16 +147,16 @@ private struct ToIgnoreViewBackground: View {
             .frame(height: height)
             .frame(maxWidth: .infinity)
             .background {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.secondary)
             }
             
             HStack(spacing: 16) {
                 Image(systemName: "trash.fill")
-                    .font(.title)
+                    .font(.title3)
                 
                 Text("Already know")
-                    .fontWeight(.bold)
+                    .font(.caption.bold())
             }
             .foregroundStyle(.gray.secondary)
             .padding(12)

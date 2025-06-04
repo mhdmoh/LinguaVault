@@ -17,10 +17,15 @@ class MainCoordinator: ObservableObject {
         case pronunciation
         case learnedVocabulary
         case vocabularyDetails
+        case addToCollection
     }
     
     func goToVocabularyScreen() {
         path.append(.vocabulary)
+    }
+    
+    func goToAddToCollectionScreen(){
+        path.append(.addToCollection)
     }
     
     func goToVocabularyDetailsScreen() {

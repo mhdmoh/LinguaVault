@@ -79,6 +79,8 @@ struct HomeScreen: View {
                     LearnedVocabularyScreen()
                 case .vocabulary:
                     LearnVocabularyView()
+                case .addToCollection:
+                    AddToCollectionScreen()
                 case .pronunciation:
                     Text("")
                 }

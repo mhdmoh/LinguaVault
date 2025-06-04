@@ -25,6 +25,7 @@ struct FlipableCardView<Front: View, Back: View>: View {
                 )
                 .background{
                     RoundedRectangle(cornerRadius: 20)
+                        .stroke(.gray.secondary, lineWidth: 2)
                         .fill(.white)
                 }
                 .rotation3DEffect(.degrees(isFlipped ? 0 : -90), axis: (x: 0, y: 1, z: 0))
@@ -37,6 +38,7 @@ struct FlipableCardView<Front: View, Back: View>: View {
                 )
                 .background{
                     RoundedRectangle(cornerRadius: 20)
+                        .stroke(.gray.secondary, lineWidth: 2)
                         .fill(.white)
                 }
                 .rotation3DEffect(.degrees(isFlipped ? 90 : 0), axis: (x: 0, y: 1, z: 0))
